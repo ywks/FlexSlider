@@ -24,7 +24,8 @@
         watchedEventClearTimer,
         vertical = slider.vars.direction === "vertical",
         reverse = slider.vars.reverse,
-        carousel = (slider.vars.itemWidth > 0),
+        carousel = (slider.vars.itemWidth > 0 || slider.vars.itemHeight > 0),
+        //carousel = (slider.vars.class != undefined && slider.vars.class.indexOf("carousel") !== -1),
         fade = slider.vars.animation === "fade",
         asNav = slider.vars.asNavFor !== "",
         methods = {};
@@ -574,7 +575,9 @@
             // SMOOTH HEIGHT:
             methods.smoothHeight();
           } else if (carousel) { //CAROUSEL:
-            slider.slides.width(slider.computedW);
+            if(slider.vars.itemWidth > 0){
+              slider.slides.width(slider.computedW);
+            }
             slider.update(slider.pagingCount);
             slider.setProps();
           }
@@ -937,7 +940,18 @@
           slider.setProps(sliderOffset * slider.computedW, "init");
           setTimeout(function(){
             slider.doMath();
-            slider.newSlides.css({"width": slider.computedW, "marginRight" : slider.computedM, "float": "left", "display": "block"});
+          	if(carousel && slider.vars.itemHeight > 0){            
+              slider.newSlides.each(function() {
+                var img = $(this).find('img');
+                $(this).css({
+                  "width": (slider.vars.itemWidth > 0) ? slider.computedW : img[0].width + slider.vars.itemMargin,
+                  "float": "left",
+                  "display": "block"
+                }); 
+              });
+            } else {
+              slider.newSlides.css({"width": slider.computedW, "marginRight" : slider.computedM, "float": "left", "display": "block"});
+            }
             // SMOOTH HEIGHT:
             if (slider.vars.smoothHeight) { methods.smoothHeight(); }
           }, (type === "init") ? 100 : 0);
@@ -979,14 +993,26 @@
 
       // CAROUSEL:
       if (carousel) {
-        slider.itemT = slider.vars.itemWidth + slideMargin;
-        slider.itemM = slideMargin;
-        slider.minW = (minItems) ? minItems * slider.itemT : slider.w;
-        slider.maxW = (maxItems) ? (maxItems * slider.itemT) - slideMargin : slider.w;
-        slider.itemW = (slider.minW > slider.w) ? (slider.w - (slideMargin * (minItems - 1)))/minItems :
-                       (slider.maxW < slider.w) ? (slider.w - (slideMargin * (maxItems - 1)))/maxItems :
-                       (slider.vars.itemWidth > slider.w) ? slider.w : slider.vars.itemWidth;
-
+        if (slider.vars.itemWidth === 0 && slider.vars.itemHeight > 0) {
+            var widths = 0;
+      	    slider.slides.each(function() {
+            var img = $(this).find('img');
+            img[0].width = img[0].width * (slider.vars.itemHeight / img[0].height);
+            img[0].height = slider.vars.itemHeight;
+            widths = widths + img[0].width + slideMargin;
+      	});
+      	slider.itemW = (slider.minW > slider.w) ? (slider.w - (slideMargin * (minItems - 1))) / minItems :
+        (slider.maxW < slider.w) ? (slider.w - (slideMargin * (maxItems - 1))) / maxItems :
+        (slider.vars.itemWidth > slider.w) ? slider.w : (widths / slider.count);
+    } else {
+          slider.itemT = slider.vars.itemWidth + slideMargin;
+          slider.itemM = slideMargin;
+          slider.minW = (minItems) ? minItems * slider.itemT : slider.w;
+          slider.maxW = (maxItems) ? (maxItems * slider.itemT) - slideMargin : slider.w;
+          slider.itemW = (slider.minW > slider.w) ? (slider.w - (slideMargin * (minItems - 1)))/minItems :
+                         (slider.maxW < slider.w) ? (slider.w - (slideMargin * (maxItems - 1)))/maxItems :
+                         (slider.vars.itemWidth > slider.w) ? slider.w : slider.vars.itemWidth;
+    }
         slider.visible = Math.floor(slider.w/(slider.itemW));
         slider.move = (slider.vars.move > 0 && slider.vars.move < slider.visible ) ? slider.vars.move : slider.visible;
         slider.pagingCount = Math.ceil(((slider.count - slider.visible)/slider.move) + 1);
@@ -1146,6 +1172,7 @@
     // Carousel Options
     itemWidth: 0,                   //{NEW} Integer: Box-model width of individual carousel items, including horizontal borders and padding.
     itemMargin: 0,                  //{NEW} Integer: Margin between carousel items.
+    itemHeigh: 0,                   //{NEW} Integer: Box-model height of individual carousel items, use either itemWidth or itemHeight.
     minItems: 1,                    //{NEW} Integer: Minimum number of carousel items that should be visible. Items will resize fluidly when below this.
     maxItems: 0,                    //{NEW} Integer: Maxmimum number of carousel items that should be visible. Items will resize fluidly when above this limit.
     move: 0,                        //{NEW} Integer: Number of carousel items that should move on animation. If 0, slider will move all visible items.
