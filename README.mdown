@@ -162,6 +162,9 @@ Description to be added.
 ### itemWidth: *{new}*
 `itemWidth` is the primary property for the new carousel options. Without this property, your slider is not considered a carousel. To use `itemWidth`, give an integer value of the width of your individual slides. This should include borders and paddings applied to your slides; a total width measurement.
 
+### itemHeight: *{new}*
+`itemHeight` is the other property for the new carousel options. Your slider will be considered a carousel only with either `itemWith` or `itemHeight` option set (not both). To use `itemHeight`, give an integer value of the height of your individual slides (ideal for combining portrait and landscape carousel).
+
 ### itemMargin: *{new}*
 `itemMargin` describes the gutter between the slide elements. If each slide has a margin-left of 10px, your itemMargin value would be 10. If elements have margin: 0 10px, your itemMargin would be 20.
 
