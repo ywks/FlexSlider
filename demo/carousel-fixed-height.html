@@ -15,23 +15,6 @@
 	<!-- Modernizr -->
   <script src="js/modernizr.js"></script>
 
-  <style type="text/css">
-    .flex-caption {
-      width: 96%;
-      padding: 2%;
-      left: 0;
-      bottom: 0;
-      background: rgba(0,0,0,.5);
-      color: #fff;
-      text-shadow: 0 -1px 0 rgba(0,0,0,.3);
-      font-size: 14px;
-      line-height: 18px;
-    }
-    li.css a {
-      border-radius: 0;
-    }
-  </style>
-
 </head>
 <body class="loading">
 
@@ -48,11 +31,11 @@
         <ul>
           <li><a href="index.html">Basic Slider</a></li>
           <li><a href="basic-slider-with-custom-direction-nav.html">Basic Slider customDirectionNav</a></li>
-          <li class="active"><a href="basic-slider-with-caption.html">Basic Slider with Simple Caption</a></li>
+          <li><a href="basic-slider-with-caption.html">Basic Slider with Simple Caption</a></li>
           <li><a href="thumbnail-controlnav.html">Slider w/thumbnail controlNav pattern</a></li>
           <li><a href="thumbnail-slider.html">Slider w/thumbnail slider</a></li>
           <li><a href="basic-carousel.html">Basic Carousel</a></li>
-          <li><a href="carousel-fixed-height.html">Carousel w/fixed height</a></li>
+          <li class="active"><a href="carousel-fixed-height.html">Carousel w/fixed height</a></li>
           <li><a href="carousel-min-max.html">Carousel with min and max ranges</a></li>
           <li><a href="dynamic-carousel-min-max.html">Carousel with dynamic min/max ranges</a></li>
           <li><a href="video.html">Video & the api (vimeo)</a></li>
@@ -63,62 +46,74 @@
 
 	<div id="main" role="main">
       <section class="slider">
-        <div class="flexslider">
+        <div class="flexslider carousel">
           <ul class="slides">
             <li>
-  	    	    <img src="images/kitchen_adventurer_cheesecake_brownie.jpg" />
-              <p class="flex-caption">Adventurer Cheesecake Brownie</p>
-  	    		</li>
-  	    		<li>
-  	    	    <img src="images/kitchen_adventurer_lemon.jpg" />
-              <p class="flex-caption">Adventurer Lemon</p>
-  	    		</li>
-  	    		<li>
-  	    	    <img src="images/kitchen_adventurer_donut.jpg" />
-              <p class="flex-caption">Adventurer Donut</p>
-  	    		</li>
-  	    		<li>
-  	    	    <img src="images/kitchen_adventurer_caramel.jpg" />
-              <p class="flex-caption">Adventurer Caramel</p>
-  	    		</li>
+              <img src="images/kitchen_adventurer_cheesecake_brownie.jpg" />
+            </li>
+            <li>
+              <img src="images/kitchen_adventurer_donut_portrait.jpg" />
+            </li>
+            <li>
+              <img src="images/kitchen_adventurer_lemon.jpg" />
+            </li>
+            <li>
+              <img src="images/kitchen_adventurer_donut.jpg" />
+            </li>
+            <li>
+              <img src="images/kitchen_adventurer_caramel.jpg" />
+            </li>
+            <li>
+              <img src="images/kitchen_adventurer_cheesecake_brownie.jpg" />
+            </li>
+            <li>
+              <img src="images/kitchen_adventurer_donut_portrait.jpg" />
+            </li>
+            <li>
+              <img src="images/kitchen_adventurer_lemon.jpg" />
+            </li>
+            <li>
+              <img src="images/kitchen_adventurer_donut.jpg" />
+            </li>
+            <li>
+              <img src="images/kitchen_adventurer_caramel.jpg" />
+            </li>
+            <li>
+              <img src="images/kitchen_adventurer_cheesecake_brownie.jpg" />
+            </li>
+            <li>
+              <img src="images/kitchen_adventurer_donut_portrait.jpg" />
+            </li>
+            <li>
+              <img src="images/kitchen_adventurer_lemon.jpg" />
+            </li>
+            <li>
+              <img src="images/kitchen_adventurer_donut.jpg" />
+            </li>
+            <li>
+              <img src="images/kitchen_adventurer_caramel.jpg" />
+            </li>
           </ul>
         </div>
       </section>
       <aside>
         <div class="cf">
-          <h3>Basic Slider</h3>
+          <h3>Carousel with fixed height</h3>
           <ul class="toggle cf">
             <li class="js"><a href="#view-js">JS</a></li>
-            <li class="css"><a href="#view-css">CSS</a></li>
             <li class="html"><a href="#view-html">HTML</a></li>
           </ul>
         </div>
         <div id="view-js" class="code">
           <pre class="brush: js; toolbar: false; gutter: false;">
-            // Can also be used with $(document).ready()
             $(window).load(function() {
               $('.flexslider').flexslider({
-                animation: "slide"
+                animation: "slide",
+                animationLoop: false,
+                itemHeight: 150,
+                itemMargin: 5
               });
             });
-          </pre>
-        </div>
-        <div id="view-css" class="code">
-          <pre class="brush: xml; toolbar: false; gutter: false;">
-            &lt;!-- Place either at the bottom in the &lt;head&gt; of your page or inside your CSS -->
-            &lt;style type="text/css">
-            .flex-caption {
-              width: 96%;
-              padding: 2%;
-              left: 0;
-              bottom: 0;
-              background: rgba(0,0,0,.5);
-              color: #fff;
-              text-shadow: 0 -1px 0 rgba(0,0,0,.3);
-              font-size: 14px;
-              line-height: 18px;
-            }
-            &lt;/style>
           </pre>
         </div>
         <div id="view-html" class="code">
@@ -128,20 +123,17 @@
               &lt;ul class="slides">
                 &lt;li>
                   &lt;img src="slide1.jpg" />
-                  &lt;p class="flex-caption">Adventurer Cheesecake Brownie&lt;/p>
                 &lt;/li>
                 &lt;li>
                   &lt;img src="slide2.jpg" />
-                  &lt;p class="flex-caption">Adventurer Lemon&lt;/p>
                 &lt;/li>
                 &lt;li>
                   &lt;img src="slide3.jpg" />
-                  &lt;p class="flex-caption">Adventurer Donut&lt;/p>
                 &lt;/li>
                 &lt;li>
                   &lt;img src="slide4.jpg" />
-                  &lt;p class="flex-caption">Adventurer Caramel&lt;/p>
                 &lt;/li>
+                &lt;!-- items mirrored twice, total of 12 -->
               &lt;/ul>
             &lt;/div>
           </pre>
@@ -165,6 +157,10 @@
     $(window).load(function(){
       $('.flexslider').flexslider({
         animation: "slide",
+        animationLoop: false,
+        itemHeight: 150,
+        itemMargin: 5,
+        pausePlay: true,
         start: function(slider){
           $('body').removeClass('loading');
         }
