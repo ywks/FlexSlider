@@ -994,14 +994,23 @@
       // CAROUSEL:
       if (carousel) {
         if (slider.vars.itemWidth === 0 && slider.vars.itemHeight > 0) {
-            var widths = 0;
-      	    slider.slides.each(function() {
-            var img = $(this).find('img');
-            img[0].width = img[0].width * (slider.vars.itemHeight / img[0].height);
-            img[0].height = slider.vars.itemHeight;
-            widths = widths + img[0].width + slideMargin;
-      	});
-      	slider.itemW = (slider.minW > slider.w) ? (slider.w - (slideMargin * (minItems - 1))) / minItems :
+            var widths = 0,
+            list =  Array.prototype.slice.call(slider.slides.find('img'));
+            list.forEach(function(img) {
+              var actualWidth = img.width,
+                actualHeight = img.height,
+                height = slider.vars.itemHeight;
+              if (actualWidth && actualHeight) {
+                img.width = actualWidth * (height / actualHeight);
+                img.height = height;              
+              } else {
+                img.onload = function() {
+                  slider.doMath();
+                };
+              }
+              widths = widths + actualWidth + slideMargin;
+            });
+        slider.itemW = (slider.minW > slider.w) ? (slider.w - (slideMargin * (minItems - 1))) / minItems :
         (slider.maxW < slider.w) ? (slider.w - (slideMargin * (maxItems - 1))) / maxItems :
         (slider.vars.itemWidth > slider.w) ? slider.w : (widths / slider.count);
     } else {
