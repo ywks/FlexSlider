@@ -1005,7 +1005,7 @@
                 img.height = height;              
               } else {
                 domath = 1;
-                img.onload = () => {
+                img.onload = function() {
                   if(domath === 1){
                     domath = 0;
                     slider.setup();
